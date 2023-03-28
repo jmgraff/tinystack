@@ -1,0 +1,7 @@
+services:
+  tinystack:
+    volumes:
+      - ./container/src/:/opt/container
+      - ./data:/opt/data
+    environment:
+      DEV: 1
