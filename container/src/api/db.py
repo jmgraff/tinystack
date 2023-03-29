@@ -1,7 +1,7 @@
 from typing import AsyncGenerator
 import pathlib
 
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import Column, Boolean, Integer, String, create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import Session, declarative_base
 
@@ -24,3 +24,8 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 # define database classes here
+class Todo(Base):
+    __tablename__ = "todo"
+    id = Column(Integer, primary_key=True)
+    text = Column(String, nullable=False)
+    done = Column(Boolean, nullable=False, default=True)
