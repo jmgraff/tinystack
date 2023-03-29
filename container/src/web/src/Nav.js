@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function TopNav() {
     return (
-        <AppBar position="sticky" sx={{ flexGrow: 1}}>
+        <AppBar position="sticky" sx={{ flexGrow: 1 }}>
             <Toolbar>
                 <Button color="inherit" component={Link} to="/">
                     <Typography variant="h6">Tinystack</Typography>
