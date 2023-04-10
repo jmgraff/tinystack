@@ -8,6 +8,9 @@ export default function TopNav() {
                 <Button color="inherit" component={Link} to="/">
                     <Typography variant="h6">Tinystack</Typography>
                 </Button>
+                <Button color="inherit" component={Link} to="/todos">
+                    Todo List
+                </Button>
                 <Box
                     sx={{
                         display: "flex",

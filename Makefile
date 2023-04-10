@@ -16,7 +16,7 @@ dev:
 down:
 	@docker compose down
 clean:
-	@rm -rf data
+	@sudo rm -rf data
 build-shell:
 	@docker build -t $(PROJECT_NAME)-shell shell
 format: build-shell

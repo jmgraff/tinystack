@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Nav from "./Nav.js";
 import HomePage from "./home/HomePage.js";
+import TodoPage from "./todos/TodoPage.js";
 
 const queryClient = new QueryClient({});
 
@@ -17,6 +18,7 @@ export default function App() {
                     <Box>
                         <Routes>
                             <Route path="/" element={<HomePage />} />
+                            <Route path="/todos" element={<TodoPage />} />
                         </Routes>
                     </Box>
                 </BrowserRouter>

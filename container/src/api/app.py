@@ -21,7 +21,7 @@ app.add_middleware(
 class TodoModel(BaseModel):
     id: typing.Optional[int]
     text: str
-    done: bool
+    done: typing.Optional[bool]
 
 
 @app.on_event("startup")
@@ -35,7 +35,7 @@ async def get_todos(session: AsyncSession = Depends(get_async_session)):
     return [{"id": todo.id, "text": todo.text, "done": todo.done} for todo in todos.scalars()]
 
 
-@app.get("/todo/{id}")
+@app.get("/todos/{id}")
 async def get_todo(id: int, session: AsyncSession = Depends(get_async_session)):
     todo = await session.get(Todo, id)
     return {"id": todo.id, "text": todo.text}
@@ -43,7 +43,7 @@ async def get_todo(id: int, session: AsyncSession = Depends(get_async_session)):
 
 @app.post("/todos")
 async def post_todo(todo: TodoModel, session: AsyncSession = Depends(get_async_session)):
-    session.add(Todo(text=todo.text, done=todo.done))
+    session.add(Todo(text=todo.text))
     await session.commit()
 
 
@@ -54,7 +54,7 @@ async def delete_todo(id: int, session: AsyncSession = Depends(get_async_session
     await session.commit()
 
 
-@app.put("/todo/{id}")
+@app.put("/todos/{id}")
 async def put_todo(id: int, new_todo: TodoModel, session: AsyncSession = Depends(get_async_session)):
     todo = await session.get(Todo, id)
     todo.text = new_todo.text

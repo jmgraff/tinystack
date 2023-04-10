@@ -28,4 +28,4 @@ class Todo(Base):
     __tablename__ = "todo"
     id = Column(Integer, primary_key=True)
     text = Column(String, nullable=False)
-    done = Column(Boolean, nullable=False, default=True)
+    done = Column(Boolean, nullable=False, default=False)
