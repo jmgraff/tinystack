@@ -4,6 +4,8 @@ import pathlib
 from sqlalchemy import Column, Boolean, Integer, String, create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import Session, declarative_base
+from fastapi import Depends
+from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
 
 Base = declarative_base()
 
@@ -23,7 +25,16 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
-# define database classes here
+async def get_user_db(session: AsyncSession = Depends(get_async_session)):
+    yield SQLAlchemyUserDatabase(session, User)
+
+
+# fastapi-users table
+class User(SQLAlchemyBaseUserTableUUID, Base):
+    pass
+
+
+# define app database classes here
 class Todo(Base):
     __tablename__ = "todo"
     id = Column(Integer, primary_key=True)

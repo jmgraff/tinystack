@@ -1,7 +1,7 @@
 import { Box, Button, AppBar, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-export default function TopNav() {
+export default function Nav() {
     return (
         <AppBar position="sticky" sx={{ flexGrow: 1 }}>
             <Toolbar>

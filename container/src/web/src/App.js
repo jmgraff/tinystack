@@ -3,6 +3,7 @@ import { CssBaseline, Container, Box } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Nav from "./Nav.js";
+import AuthPage from "./auth/AuthPage.js";
 import HomePage from "./home/HomePage.js";
 import TodoPage from "./todos/TodoPage.js";
 
@@ -15,9 +16,10 @@ export default function App() {
             <Container>
                 <BrowserRouter>
                     <Nav />
-                    <Box>
+                    <Box sx={{ mt: "1rem" }}>
                         <Routes>
                             <Route path="/" element={<HomePage />} />
+                            <Route path="/auth" element={<AuthPage />} />
                             <Route path="/todos" element={<TodoPage />} />
                         </Routes>
                     </Box>

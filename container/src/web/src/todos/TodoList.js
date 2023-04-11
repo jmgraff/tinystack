@@ -3,7 +3,7 @@ import { Box, Button, CircularProgress, Input, Checkbox, Typography } from "@mui
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import TodoForm from "./TodoForm";
-import { axiosInstance } from "../util";
+import { client } from "../util";
 
 function Todo({ todo }) {
     const [hovering, setHovering] = useState(false);
@@ -12,11 +12,11 @@ function Todo({ todo }) {
     const [done, setDone] = useState(todo.done);
     const queryClient = useQueryClient();
 
-    const saveTodo = useMutation(() => axiosInstance.put(`/todos/${todo.id}`, { id: todo.id, text, done }), {
+    const saveTodo = useMutation(() => client.put(`/todos/${todo.id}`, { id: todo.id, text, done }), {
         onSuccess: () => queryClient.invalidateQueries(["todos"]),
     });
 
-    const deleteTodo = useMutation((todo) => axiosInstance.delete(`/todos/${todo.id}`), {
+    const deleteTodo = useMutation((todo) => client.delete(`/todos/${todo.id}`), {
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
     });
 
@@ -60,7 +60,7 @@ function Todo({ todo }) {
 }
 
 export default function TodoList() {
-    const { data, isLoading } = useQuery(["todos"], () => axiosInstance.get("/todos").then((res) => res.data));
+    const { data, isLoading } = useQuery(["todos"], () => client.get("/todos").then((res) => res.data));
 
     if (isLoading) return <CircularProgress />;
 
