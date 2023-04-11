@@ -9,7 +9,7 @@ from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 
 from db import get_async_session, create_db_and_tables, User, Todo
-from users import auth_backend, current_active_user, fastapi_users, UserCreate, UserRead, UserUpdate
+from users import auth_backend, current_active_user, fastapi_users, UserCreate, UserRead, UserUpdate, add_superuser
 
 app = FastAPI()
 app.add_middleware(
@@ -51,6 +51,7 @@ class TodoModel(BaseModel):
 @app.on_event("startup")
 async def on_startup():
     await create_db_and_tables()
+    await add_superuser()
 
 
 @app.get("/todos")
