@@ -16,6 +16,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[os.getenv("PROTO") + "://" + os.getenv("WEB_HOST")],
     allow_methods=["*"],
+    allow_headers=["*"],
 )
 app.include_router(fastapi_users.get_auth_router(auth_backend), prefix="/auth/jwt", tags=["auth"])
 app.include_router(
