@@ -17,6 +17,7 @@ from db import User, get_user_db, get_async_session
 SECRET = "SECRET"
 LOGIN_LIFETIME = 3600
 
+
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     reset_password_token_secret = SECRET
     verification_token_secret = SECRET

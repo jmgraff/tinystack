@@ -14,8 +14,12 @@ function UserInfo() {
     return (
         <>
             <Typography>{user.data.email}</Typography>
-            <Button color="inherit" component={Link} to="/settings"><SettingsIcon /></Button>
-            <Button color="inherit" onClick={() => logOut.mutate()}><LogoutIcon /></Button>
+            <Button color="inherit" component={Link} to="/settings">
+                <SettingsIcon />
+            </Button>
+            <Button color="inherit" onClick={() => logOut.mutate()}>
+                <LogoutIcon />
+            </Button>
         </>
     );
 }

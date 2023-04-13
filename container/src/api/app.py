@@ -40,17 +40,22 @@ app.include_router(
     tags=["users"],
 )
 
+
 @app.get("/users")
 async def get_users(session: AsyncSession = Depends(get_async_session), user: User = Depends(current_active_user)):
     if not user.is_superuser:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
     users = await session.execute(select(User))
-    return [{
-        "id": user.id,
-        "email": user.email,
-        "is_active": user.is_active,
-        "is_superuser": user.is_superuser,
-    } for user in users.scalars()]
+    return [
+        {
+            "id": user.id,
+            "email": user.email,
+            "is_active": user.is_active,
+            "is_superuser": user.is_superuser,
+        }
+        for user in users.scalars()
+    ]
+
 
 # define app routes / models here
 

@@ -14,10 +14,7 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
             <CssBaseline />
             <Container sx={{ mt: "1rem" }}>
-                <AuthLoader
-                    renderLoading={() => <CircularProgress />}
-                    renderUnauthenticated={() => <AuthPage />}
-                >
+                <AuthLoader renderLoading={() => <CircularProgress />} renderUnauthenticated={() => <AuthPage />}>
                     <BrowserRouter>
                         <Nav />
                         <Box sx={{ mt: "1rem" }}>

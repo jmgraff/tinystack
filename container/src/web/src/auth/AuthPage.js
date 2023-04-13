@@ -1,30 +1,54 @@
-import { Button, TextField, Box, Alert, Typography } from "@mui/material";
+import { Button, TextField, Box, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 
+import QueryStatusMessage from "../QueryStatusMessage";
 import { useLogin } from "../util";
 
 export default function AuthPage() {
     const login = useLogin();
-    const { register, handleSubmit } = useForm();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const onSubmit = (creds) => login.mutate(creds);
 
     return (
-        <Box sx={{
-            mt: "20%",
-            display: "flex",
-            justifyContent: "center"
-        }}>
+        <Box
+            sx={{
+                mt: "20%",
+                display: "flex",
+                justifyContent: "center",
+            }}
+        >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Box sx={{
-                    width: "40rem",
+                <Box
+                    sx={{
+                        width: "40rem",
                         display: "flex",
                         flexDirection: "column",
                         rowGap: "1rem",
-                }}>
+                    }}
+                >
                     <Typography variant="h1">🥞 tinystack</Typography>
-                    { login.isError && <Alert severity="error">Incorrect username or password</Alert> }
-                    <TextField label="Email" {...register("username")} />
-                    <TextField label="Password" type="password" {...register("password")} />
+                    <QueryStatusMessage query={login} errorTitle="Error logging in" />
+                    <TextField
+                        label="Email"
+                        error={!!errors.username}
+                        helperText={errors.username?.message}
+                        {...register("username", {
+                            required: "Required",
+                        })}
+                    />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                        {...register("password", {
+                            required: "Required",
+                        })}
+                    />
                     <Button type="submit">Log In</Button>
                 </Box>
             </form>
