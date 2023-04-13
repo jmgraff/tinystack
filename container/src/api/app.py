@@ -1,7 +1,7 @@
 import os
 import typing
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,7 +16,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[os.getenv("PROTO") + "://" + os.getenv("WEB_HOST")],
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_credentials=True,
 )
 app.include_router(fastapi_users.get_auth_router(auth_backend), prefix="/auth/jwt", tags=["auth"])
 app.include_router(
@@ -39,6 +39,18 @@ app.include_router(
     prefix="/users",
     tags=["users"],
 )
+
+@app.get("/users")
+async def get_users(session: AsyncSession = Depends(get_async_session), user: User = Depends(current_active_user)):
+    if not user.is_superuser:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+    users = await session.execute(select(User))
+    return [{
+        "id": user.id,
+        "email": user.email,
+        "is_active": user.is_active,
+        "is_superuser": user.is_superuser,
+    } for user in users.scalars()]
 
 # define app routes / models here
 

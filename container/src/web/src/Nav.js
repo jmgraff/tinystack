@@ -1,28 +1,23 @@
 import { Box, Button, AppBar, Toolbar, Typography, CircularProgress } from "@mui/material";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { Link } from "react-router-dom";
 
-import { client, logOut } from "./util";
+import { useUser, useLogout } from "./util";
 
 function UserInfo() {
-    const queryClient = useQueryClient();
-    const navigate = useNavigate();
-    const { data, isLoading } = useQuery(["user"], () => {
-        return client.get("/users/me")
-            .then((res) => res.data || null)
-    });
+    const user = useUser();
+    const logOut = useLogout();
 
-    const handleLogOut = () => {
-        logOut();
-        queryClient.invalidateQueries(["user"]);
-        navigate("/auth");
-    }
+    if (user.isLoading) return <CircularProgress />;
 
-    if (isLoading) return <CircularProgress />;
-
-    if (data === null) return <Button color="inherit" component={Link} to="/auth">Log In</Button>
-
-    return <Button color="inherit" onClick={handleLogOut}>Log Out {data.email}</Button>;
+    return (
+        <>
+            <Typography>{user.data.email}</Typography>
+            <Button color="inherit" component={Link} to="/settings"><SettingsIcon /></Button>
+            <Button color="inherit" onClick={() => logOut.mutate()}><LogoutIcon /></Button>
+        </>
+    );
 }
 
 export default function Nav() {

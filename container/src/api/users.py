@@ -6,7 +6,7 @@ from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, FastAPIUsers, UUIDIDMixin, schemas
 from fastapi_users.authentication import (
     AuthenticationBackend,
-    BearerTransport,
+    CookieTransport,
     JWTStrategy,
 )
 from fastapi_users.db import SQLAlchemyUserDatabase
@@ -15,7 +15,7 @@ from fastapi_users.exceptions import UserAlreadyExists
 from db import User, get_user_db, get_async_session
 
 SECRET = "SECRET"
-
+LOGIN_LIFETIME = 3600
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     reset_password_token_secret = SECRET
@@ -35,16 +35,16 @@ async def get_user_manager(user_db: SQLAlchemyUserDatabase = Depends(get_user_db
     yield UserManager(user_db)
 
 
-bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
+cookie_transport = CookieTransport(cookie_max_age=LOGIN_LIFETIME)
 
 
 def get_jwt_strategy() -> JWTStrategy:
-    return JWTStrategy(secret=SECRET, lifetime_seconds=3600)
+    return JWTStrategy(secret=SECRET, lifetime_seconds=LOGIN_LIFETIME)
 
 
 auth_backend = AuthenticationBackend(
     name="jwt",
-    transport=bearer_transport,
+    transport=cookie_transport,
     get_strategy=get_jwt_strategy,
 )
 
