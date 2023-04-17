@@ -1,11 +1,16 @@
-import { Box, Button, AppBar, Toolbar, Typography, CircularProgress } from "@mui/material";
+import { useContext } from "react";
+import { DarkModeContext } from "./App.js";
+import { Box, IconButton, Button, AppBar, Toolbar, Typography, CircularProgress } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import Brightness3Icon from '@mui/icons-material/Brightness3';
 import { Link } from "react-router-dom";
 
 import { useUser, useLogout } from "./util";
 
 function UserInfo() {
+    const darkModeContext = useContext(DarkModeContext);
     const user = useUser();
     const logOut = useLogout();
 
@@ -14,12 +19,15 @@ function UserInfo() {
     return (
         <>
             <Typography>{user.data.email}</Typography>
-            <Button color="inherit" component={Link} to="/settings">
+            <IconButton color="inherit" onClick={() => darkModeContext.toggle()}>
+                { darkModeContext.isDarkMode ? <WbSunnyIcon /> : <Brightness3Icon /> }
+            </IconButton>
+            <IconButton color="inherit" component={Link} to="/settings">
                 <SettingsIcon />
-            </Button>
-            <Button color="inherit" onClick={() => logOut.mutate()}>
+            </IconButton>
+            <IconButton color="inherit" onClick={() => logOut.mutate()}>
                 <LogoutIcon />
-            </Button>
+            </IconButton>
         </>
     );
 }
