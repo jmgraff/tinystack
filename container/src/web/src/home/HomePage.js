@@ -12,11 +12,6 @@ export default function HomePage() {
                         Todo List
                     </MuiLink>
                 </li>
-                <li>
-                    <MuiLink to="/auth" component={Link}>
-                        Log In
-                    </MuiLink>
-                </li>
             </ul>
         </Box>
     );
