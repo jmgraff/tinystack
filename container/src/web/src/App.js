@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { CssBaseline, Container, Box, CircularProgress } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import Nav from "./Nav.js";
 import AuthPage from "./auth/AuthPage.js";
@@ -22,16 +22,19 @@ export default function App() {
     const theme = createTheme({
         palette: {
             mode: darkMode ? "dark" : "light",
-        }
+        },
     });
 
     return (
-        <DarkModeContext.Provider value={{isDarkMode: darkMode, toggle: () => setDarkMode(!darkMode)}}>
+        <DarkModeContext.Provider value={{ isDarkMode: darkMode, toggle: () => setDarkMode(!darkMode) }}>
             <ThemeProvider theme={theme}>
                 <QueryClientProvider client={queryClient}>
                     <CssBaseline />
                     <Container sx={{ mt: "1rem" }}>
-                        <AuthLoader renderLoading={() => <CircularProgress />} renderUnauthenticated={() => <AuthPage />}>
+                        <AuthLoader
+                            renderLoading={() => <CircularProgress />}
+                            renderUnauthenticated={() => <AuthPage />}
+                        >
                             <BrowserRouter>
                                 <Nav />
                                 <Box sx={{ mt: "1rem" }}>

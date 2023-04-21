@@ -1,10 +1,18 @@
 import { useContext } from "react";
 import { DarkModeContext } from "./App.js";
-import { Box, IconButton, Button, AppBar, Toolbar, Typography, CircularProgress } from "@mui/material";
+import {
+    Box,
+    IconButton,
+    Button,
+    AppBar,
+    Toolbar,
+    Typography,
+    CircularProgress
+} from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import Brightness3Icon from '@mui/icons-material/Brightness3';
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
 import { Link } from "react-router-dom";
 
 import { useUser, useLogout } from "./util";
@@ -20,7 +28,7 @@ function UserInfo() {
         <>
             <Typography>{user.data.email}</Typography>
             <IconButton color="inherit" onClick={() => darkModeContext.toggle()}>
-                { darkModeContext.isDarkMode ? <WbSunnyIcon /> : <Brightness3Icon /> }
+                {darkModeContext.isDarkMode ? <WbSunnyIcon /> : <Brightness3Icon />}
             </IconButton>
             <IconButton color="inherit" component={Link} to="/settings">
                 <SettingsIcon />
@@ -34,7 +42,7 @@ function UserInfo() {
 
 export default function Nav() {
     return (
-        <AppBar position="sticky" sx={{ flexGrow: 1 }}>
+        <AppBar position="sticky">
             <Toolbar>
                 <Button color="inherit" component={Link} to="/">
                     <Typography variant="h6">Tinystack</Typography>
