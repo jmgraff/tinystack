@@ -1,0 +1,30 @@
+http:
+  routers:
+    web:
+      rule: "PathPrefix(`/`)"
+      service: "web"
+      tls: true
+      entrypoints:
+        - "secure"
+    api:
+      rule: "PathPrefix(`/api`)"
+      service: "api"
+      tls: true
+      entrypoints:
+        - "secure"
+      middlewares:
+        - "api-strip-prefix"
+  middlewares:
+    api-strip-prefix:
+      stripPrefix:
+        prefixes:
+          - "/api"
+  services:
+    web:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:3000"
+    api:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8080"

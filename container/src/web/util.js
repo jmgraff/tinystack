@@ -3,11 +3,11 @@ import axios from "axios";
 import { QueryClient, useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { configureAuth } from "react-query-auth";
 
-const PROTO = process.env.REACT_APP_PROTO;
-const HOST = process.env.REACT_APP_API_HOST;
+const PROTO = process.env.NEXT_PUBLIC_PROTO;
+const HOST = process.env.NEXT_PUBLIC_HOST;
 
 export const client = axios.create({
-    baseURL: `${PROTO}://${HOST}`,
+    baseURL: `${PROTO}://${HOST}/api`,
     withCredentials: true,
 });
 

@@ -14,7 +14,7 @@ from users import auth_backend, current_active_user, fastapi_users, UserCreate, 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.getenv("PROTO") + "://" + os.getenv("WEB_HOST")],
+    allow_origins=[os.getenv("PROTO") + "://" + os.getenv("HOST")],
     allow_methods=["*"],
     allow_credentials=True,
 )

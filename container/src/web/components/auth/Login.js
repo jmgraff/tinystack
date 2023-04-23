@@ -1,10 +1,10 @@
 import { Button, TextField, Box, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import QueryStatusMessage from "../QueryStatusMessage";
-import { useLogin } from "../util";
+import QueryStatusMessage from "@/components/QueryStatusMessage.js";
+import { useLogin } from "@/util.js";
 
-export default function AuthPage() {
+export default function Login() {
     const login = useLogin();
     const {
         register,

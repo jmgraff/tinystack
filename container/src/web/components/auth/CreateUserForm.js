@@ -1,8 +1,8 @@
 import { Button, TextField, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { useCreateUser } from "../util";
-import QueryStatusMessage from "../QueryStatusMessage";
+import { useCreateUser } from "@/util";
+import QueryStatusMessage from "@/components/QueryStatusMessage";
 
 export default function CreateUserForm() {
     const createUser = useCreateUser();

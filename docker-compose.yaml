@@ -4,14 +4,7 @@ services:
     build:
       context: container
       args:
-        REACT_APP_API_HOST: ${API_HOST}
-        REACT_APP_PROTO: ${PROTO}
+        HOST: ${HOST}
+        PROTO: ${PROTO}
     ports:
-      - 8080:8080
-      - 3000:3000
-    environment:
-      - REACT_APP_API_HOST=${API_HOST}
-      - REACT_APP_PROTO=${PROTO}
-      - WEB_HOST=${WEB_HOST}
-      - PROTO=${PROTO}
-
+      - 443:443

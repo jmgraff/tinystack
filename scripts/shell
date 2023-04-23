@@ -12,7 +12,7 @@ DOCKER_IMAGE=${PROJECT_NAME}-shell
 DOCKER_ARGS+=" -u `id -u`:`getent group docker | cut -d: -f3`"
 DOCKER_ARGS+=" -v /etc/passwd:/etc/passwd:ro"
 DOCKER_ARGS+=" -v /etc/shadow:/etc/shadow:ro"
-DOCKER_ARGS+=" -v /etc/group:/etch/group:ro"
+DOCKER_ARGS+=" -v /etc/group:/etc/group:ro"
 
 exec docker run ${DOCKER_ARGS} --rm \
     -v /home/`whoami`:/home/`whoami` \
