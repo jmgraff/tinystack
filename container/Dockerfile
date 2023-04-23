@@ -1,12 +1,16 @@
 from python:alpine
 
-arg REACT_APP_API_HOST
-arg REACT_APP_PROTO
+arg HOST
+arg PROTO
 
-env REACT_APP_API_HOST=$REACT_APP_API_HOST
-env REACT_APP_PROTO=$REACT_APP_PROTO
+env NEXT_PUBLIC_HOST=$HOST
+env NEXT_PUBLIC_PROTO=$PROTO
+env NEXT_TELEMETRY_DISABLED=1
 
-run apk add --update npm
+env HOST=$HOST
+env PROTO=$PROTO
+
+run apk add --update npm traefik
 
 copy ./requirements.txt .
 run pip install -r requirements.txt && rm requirements.txt

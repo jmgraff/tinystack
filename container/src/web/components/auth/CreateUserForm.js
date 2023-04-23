@@ -1,26 +1,26 @@
 import { Button, TextField, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { useChangeMyPassword } from "../util";
-import QueryStatusMessage from "../QueryStatusMessage";
+import { useCreateUser } from "@/util";
+import QueryStatusMessage from "@/components/QueryStatusMessage";
 
-export default function ChangeYourPasswordForm() {
-    const changeMyPassword = useChangeMyPassword();
+export default function CreateUserForm() {
+    const createUser = useCreateUser();
     const {
         register,
         handleSubmit,
-        watch,
         reset,
+        watch,
         formState: { errors },
     } = useForm();
-    const onSubmit = (formData) => {
-        changeMyPassword.mutate(formData.password);
+    const onSubmit = ({ email, password }) => {
+        createUser.mutate({ email, password });
         reset();
     };
 
     return (
         <Box>
-            <h1>Change Your Password</h1>
+            <h1>Create User</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box
                     sx={{
@@ -30,14 +30,23 @@ export default function ChangeYourPasswordForm() {
                     }}
                 >
                     <QueryStatusMessage
-                        query={changeMyPassword}
-                        errorTitle="Error changing password"
-                        successTitle="Password successfully changed"
+                        query={createUser}
+                        errorTitle="Error adding user"
+                        successTitle="Successfully added user"
                     />
                     <TextField
-                        label="New Password"
-                        id="newPassword"
+                        label="Email"
+                        data-testid="newUserEmail"
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                        {...register("email", {
+                            required: "Required",
+                        })}
+                    />
+                    <TextField
+                        label="Password"
                         type="password"
+                        data-testid="newUserPassword"
                         error={!!errors.password}
                         helperText={errors.password?.message}
                         {...register("password", {
@@ -45,9 +54,9 @@ export default function ChangeYourPasswordForm() {
                         })}
                     />
                     <TextField
-                        label="Confirm New Password"
-                        id="confirmNewPassword"
+                        label="Confirm Password"
                         type="password"
+                        data-testid="newUserConfirmPassword"
                         error={!!errors.confirmPassword}
                         helperText={errors.confirmPassword?.message}
                         {...register("confirmPassword", {
@@ -55,9 +64,7 @@ export default function ChangeYourPasswordForm() {
                             validate: (val) => watch("password") === val || "Passwords don't match",
                         })}
                     />
-                    <Button type="submit" id="submitNewPassword">
-                        Change Your Password
-                    </Button>
+                    <Button type="submit" data-testid="newUserSubmit">Add User</Button>
                 </Box>
             </form>
         </Box>

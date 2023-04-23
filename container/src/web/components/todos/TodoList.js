@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Box, Button, CircularProgress, Input, Checkbox, Typography } from "@mui/material";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import TodoForm from "./TodoForm";
-import { client } from "../util";
+import TodoForm from "@/components/todos/TodoForm.js";
+import { client } from "@/util.js";
 
 function Todo({ todo }) {
     const [hovering, setHovering] = useState(false);

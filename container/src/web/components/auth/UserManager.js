@@ -1,7 +1,8 @@
 import { Box, CircularProgress, Checkbox } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { useUsers, useDelUser, useSetUserActive, useSetSuperuser } from "../util";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import { useUsers, useDelUser, useSetUserActive, useSetSuperuser } from "@/util.js";
 
 export default function UserManager() {
     const users = useUsers();
@@ -43,7 +44,13 @@ export default function UserManager() {
             type: "actions",
             width: 250,
             getActions: ({ row: { id } }) => [
-                <GridActionsCellItem onClick={() => delUser.mutate(id)} icon={<DeleteIcon />} label="Delete" />,
+                <GridActionsCellItem
+                    data-testid="deleteUser"
+                    key={id}
+                    onClick={() => delUser.mutate(id)}
+                    icon={<DeleteIcon />}
+                    label="Delete"
+                />,
             ],
         },
     ];

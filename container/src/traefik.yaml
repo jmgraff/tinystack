@@ -1,0 +1,10 @@
+global:
+  sendAnonymousUsage: false
+
+entryPoints:
+  secure:
+    address: ":443"
+
+providers:
+  file:
+    filename: ./traefik-provider.yaml

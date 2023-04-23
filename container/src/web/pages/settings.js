@@ -1,8 +1,9 @@
 import { Box, CircularProgress } from "@mui/material";
-import UserManager from "../auth/UserManager";
-import CreateUserForm from "../auth/CreateUserForm";
-import ChangeMyPasswordForm from "../auth/ChangeMyPasswordForm";
-import { useUser } from "../util";
+
+import UserManager from "@/components/auth/UserManager.js";
+import CreateUserForm from "@/components/auth/CreateUserForm.js";
+import ChangeMyPasswordForm from "@/components/auth/ChangeMyPasswordForm.js";
+import { useUser } from "@/util";
 
 export default function SettingsPage() {
     const user = useUser();
