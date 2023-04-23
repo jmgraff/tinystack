@@ -45,6 +45,7 @@ export default function UserManager() {
             width: 250,
             getActions: ({ row: { id } }) => [
                 <GridActionsCellItem
+                    data-testid="deleteUser"
                     key={id}
                     onClick={() => delUser.mutate(id)}
                     icon={<DeleteIcon />}

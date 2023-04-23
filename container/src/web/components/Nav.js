@@ -23,10 +23,10 @@ function UserInfo() {
             <IconButton color="inherit" onClick={() => darkModeContext.toggle()}>
                 {darkModeContext.isDarkMode ? <WbSunnyIcon /> : <Brightness3Icon />}
             </IconButton>
-            <IconButton color="inherit" component={Link} href="/settings">
+            <IconButton color="inherit" data-testid="settings" component={Link} href="/settings">
                 <SettingsIcon />
             </IconButton>
-            <IconButton color="inherit" onClick={() => logOut.mutate()}>
+            <IconButton color="inherit" data-testid="logout" onClick={() => logOut.mutate()}>
                 <LogoutIcon />
             </IconButton>
         </>

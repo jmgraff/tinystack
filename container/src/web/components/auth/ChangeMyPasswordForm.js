@@ -36,7 +36,7 @@ export default function ChangeYourPasswordForm() {
                     />
                     <TextField
                         label="New Password"
-                        id="newPassword"
+                        data-testid="newPassword"
                         type="password"
                         error={!!errors.password}
                         helperText={errors.password?.message}
@@ -46,7 +46,7 @@ export default function ChangeYourPasswordForm() {
                     />
                     <TextField
                         label="Confirm New Password"
-                        id="confirmNewPassword"
+                        data-testid="confirmNewPassword"
                         type="password"
                         error={!!errors.confirmPassword}
                         helperText={errors.confirmPassword?.message}
@@ -55,7 +55,7 @@ export default function ChangeYourPasswordForm() {
                             validate: (val) => watch("password") === val || "Passwords don't match",
                         })}
                     />
-                    <Button type="submit" id="submitNewPassword">
+                    <Button type="submit" data-testid="submitNewPassword">
                         Change Your Password
                     </Button>
                 </Box>

@@ -36,6 +36,7 @@ export default function CreateUserForm() {
                     />
                     <TextField
                         label="Email"
+                        data-testid="newUserEmail"
                         error={!!errors.email}
                         helperText={errors.email?.message}
                         {...register("email", {
@@ -45,6 +46,7 @@ export default function CreateUserForm() {
                     <TextField
                         label="Password"
                         type="password"
+                        data-testid="newUserPassword"
                         error={!!errors.password}
                         helperText={errors.password?.message}
                         {...register("password", {
@@ -54,6 +56,7 @@ export default function CreateUserForm() {
                     <TextField
                         label="Confirm Password"
                         type="password"
+                        data-testid="newUserConfirmPassword"
                         error={!!errors.confirmPassword}
                         helperText={errors.confirmPassword?.message}
                         {...register("confirmPassword", {
@@ -61,7 +64,7 @@ export default function CreateUserForm() {
                             validate: (val) => watch("password") === val || "Passwords don't match",
                         })}
                     />
-                    <Button type="submit">Add User</Button>
+                    <Button type="submit" data-testid="newUserSubmit">Add User</Button>
                 </Box>
             </form>
         </Box>
