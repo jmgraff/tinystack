@@ -17,14 +17,9 @@ export default function Layout({ children }) {
     return (
         <QueryClientProvider client={queryClient}>
             <MantineProvider withGlobalStyles withNormalizeCSS>
-                <AuthLoader
-                    renderLoading={() => <Loader />}
-                    renderUnauthenticated={() => <Login />}
-                >
+                <AuthLoader renderLoading={() => <Loader />} renderUnauthenticated={() => <Login />}>
                     <AppShell navbar={<Nav />}>
-                        <Box sx={{ width: "50rem" }}>
-                            { children }
-                        </Box>
+                        <Box sx={{ width: "50rem" }}>{children}</Box>
                     </AppShell>
                 </AuthLoader>
             </MantineProvider>

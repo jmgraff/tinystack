@@ -57,7 +57,9 @@ export default function CreateUserForm() {
                             validate: (val) => watch("password") === val || "Passwords don't match",
                         })}
                     />
-                    <Button type="submit" data-testid="newUserSubmit">Add User</Button>
+                    <Button type="submit" data-testid="newUserSubmit">
+                        Add User
+                    </Button>
                 </Stack>
             </form>
         </Box>

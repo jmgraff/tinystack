@@ -8,7 +8,7 @@ run apt-get update && apt-get install -y \
         python3-pip \
         bash \
     && pip install black \
-    && npm install -g prettier wait-on
+    && npm install -g prettier
 
 # install docker
 run apt-get -y install \

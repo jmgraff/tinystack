@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { Navbar, NavLink, Loader, Title } from "@mantine/core";
-import { IconLogout, IconSettings, IconUser, IconChecklist } from '@tabler/icons-react';
+import { IconLogout, IconSettings, IconUser, IconChecklist } from "@tabler/icons-react";
 
 import { Link } from "next/link";
 
@@ -16,11 +16,7 @@ function UserControls() {
     if (user.isLoading) return <Loader />;
 
     return (
-        <NavLink
-            data-testid="usermenu"
-            label={user.data.email}
-            icon={<IconUser />}
-        >
+        <NavLink data-testid="usermenu" label={user.data.email} icon={<IconUser />}>
             <NavLink
                 color="inherit"
                 data-testid="settings"
@@ -29,12 +25,7 @@ function UserControls() {
                 component="a"
                 href="/settings"
             />
-            <NavLink
-                data-testid="logout"
-                label="Log Out"
-                onClick={() => logOut.mutate()}
-                icon={<IconLogout />}
-            />
+            <NavLink data-testid="logout" label="Log Out" onClick={() => logOut.mutate()} icon={<IconLogout />} />
         </NavLink>
     );
 }

@@ -25,16 +25,6 @@ app.include_router(
     tags=["auth"],
 )
 app.include_router(
-    fastapi_users.get_reset_password_router(),
-    prefix="/auth",
-    tags=["auth"],
-)
-app.include_router(
-    fastapi_users.get_verify_router(UserRead),
-    prefix="/auth",
-    tags=["auth"],
-)
-app.include_router(
     fastapi_users.get_users_router(UserRead, UserUpdate),
     prefix="/users",
     tags=["users"],
@@ -42,7 +32,7 @@ app.include_router(
 
 
 @app.get("/users")
-async def get_users(session: AsyncSession = Depends(get_async_session), user: User = Depends(current_active_user)):
+async def get_all_users(session: AsyncSession = Depends(get_async_session), user: User = Depends(current_active_user)):
     if not user.is_superuser:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
     users = await session.execute(select(User))
