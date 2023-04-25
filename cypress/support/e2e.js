@@ -5,7 +5,7 @@ Cypress.Commands.add(
         cy.get("input[name=password]").type(password);
         cy.get("button[type=submit]").click();
         if (!shouldFail) {
-            cy.get("button[data-testid=logout]").should("exist");
+            cy.get("*[data-testid=usermenu]").should("exist");
         } else {
             cy.contains("Error logging in").should("exist");
         }
@@ -13,6 +13,7 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("logout", () => {
-    cy.get("button[data-testid=logout]").click();
+    cy.get("*[data-testid=usermenu]").click();
+    cy.get("*[data-testid=logout]").click();
     cy.contains("Log In").should("exist");
 });

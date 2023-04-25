@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Box, Button, CircularProgress, Input, Checkbox, Typography } from "@mui/material";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { Text, TextInput, Checkbox, Loader, Button, Stack, Box, Group } from "@mantine/core";
 
 import TodoForm from "@/components/todos/TodoForm.js";
 import { client } from "@/util.js";
@@ -35,11 +36,11 @@ function Todo({ todo }) {
     };
 
     return (
-        <Box onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
+        <Group onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
             <Checkbox checked={todo.done} onClick={toggleDone} />
             {editing && (
-                <Input
-                    type="text"
+                <TextInput
+                    size="xs"
                     value={text}
                     placeholder={text}
                     onKeyDown={(event) => event.keyCode === 13 && handleEditOrSave(true)}
@@ -47,33 +48,29 @@ function Todo({ todo }) {
                 />
             )}
             {!editing && (
-                <Typography display="inline" sx={{ textDecoration: todo.done ? "line-through" : "none" }}>
+                <Text sx={{ textDecoration: todo.done ? "line-through" : "none" }}>
                     {todo.text}
-                </Typography>
+                </Text>
             )}
-            {editing && <Button onClick={() => handleEditOrSave(true)}>Save</Button>}
-            {editing && <Button onClick={() => handleEditOrSave(false)}>Cancel</Button>}
-            {!editing && hovering && <Button onClick={() => handleEditOrSave()}>Edit</Button>}
-            {!editing && hovering && <Button onClick={() => deleteTodo.mutate(todo)}>Delete</Button>}
-        </Box>
+            {editing && <Button onClick={() => handleEditOrSave(true)} size="xs" compact>Save</Button>}
+            {editing && <Button onClick={() => handleEditOrSave(false)} size="xs" compact>Cancel</Button>}
+            {!editing && hovering && <Button onClick={() => handleEditOrSave()} size="xs" compact>Edit</Button>}
+            {!editing && hovering && <Button onClick={() => deleteTodo.mutate(todo)} size="xs" compact>Delete</Button>}
+        </Group>
     );
 }
 
 export default function TodoList() {
     const { data, isLoading } = useQuery(["todos"], () => client.get("/todos").then((res) => res.data));
 
-    if (isLoading) return <CircularProgress />;
+    if (isLoading) return <Loader />;
 
     return (
-        <ul id="todo-list">
+        <Stack id="todo-list">
             {data.map((todo) => (
-                <li key={todo.id} sx={{ width: "10rem" }}>
-                    <Todo todo={todo} />
-                </li>
+                <Todo key={todo.id} todo={todo} />
             ))}
-            <li>
-                <TodoForm />
-            </li>
-        </ul>
+            <TodoForm />
+        </Stack>
     );
 }

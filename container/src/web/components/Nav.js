@@ -1,58 +1,56 @@
 import { useContext } from "react";
 
-import { Box, IconButton, Button, AppBar, Toolbar, Typography, CircularProgress } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import Brightness3Icon from "@mui/icons-material/Brightness3";
+import { Navbar, NavLink, Loader, Title } from "@mantine/core";
+import { IconLogout, IconSettings, IconUser, IconChecklist } from '@tabler/icons-react';
+
 import { Link } from "next/link";
 
 import { useUser, useLogout } from "@/util.js";
 import { DarkModeContext } from "@/components/Layout.js";
 
-function UserInfo() {
+function UserControls() {
     const darkModeContext = useContext(DarkModeContext);
     const user = useUser();
     const logOut = useLogout();
 
-    if (user.isLoading) return <CircularProgress />;
+    if (user.isLoading) return <Loader />;
 
     return (
-        <>
-            <Typography>{user.data.email}</Typography>
-            <IconButton color="inherit" onClick={() => darkModeContext.toggle()}>
-                {darkModeContext.isDarkMode ? <WbSunnyIcon /> : <Brightness3Icon />}
-            </IconButton>
-            <IconButton color="inherit" data-testid="settings" component={Link} href="/settings">
-                <SettingsIcon />
-            </IconButton>
-            <IconButton color="inherit" data-testid="logout" onClick={() => logOut.mutate()}>
-                <LogoutIcon />
-            </IconButton>
-        </>
+        <NavLink
+            data-testid="usermenu"
+            label={user.data.email}
+            icon={<IconUser />}
+        >
+            <NavLink
+                color="inherit"
+                data-testid="settings"
+                label="Settings"
+                icon={<IconSettings />}
+                component="a"
+                href="/settings"
+            />
+            <NavLink
+                data-testid="logout"
+                label="Log Out"
+                onClick={() => logOut.mutate()}
+                icon={<IconLogout />}
+            />
+        </NavLink>
     );
 }
 
 export default function Nav() {
     return (
-        <AppBar position="sticky">
-            <Toolbar>
-                <Button color="inherit" component={Link} href="/">
-                    <Typography variant="h6">Tinystack</Typography>
-                </Button>
-                <Button color="inherit" component={Link} href="/todos">
-                    Todo List
-                </Button>
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginLeft: "auto",
-                    }}
-                >
-                    <UserInfo />
-                </Box>
-            </Toolbar>
-        </AppBar>
+        <Navbar width={{ base: 300 }} p="lg" fixed>
+            <Navbar.Section>
+                <Title order={1}>🥞 tinystack</Title>
+            </Navbar.Section>
+            <Navbar.Section grow mt="md">
+                <NavLink icon={<IconChecklist />} label="Todo List" component="a" href="/todos" />
+            </Navbar.Section>
+            <Navbar.Section>
+                <UserControls />
+            </Navbar.Section>
+        </Navbar>
     );
 }

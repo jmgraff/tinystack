@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Button, Input } from "@mui/material";
+import { Button, TextInput, Stack } from "@mantine/core";
 import { useForm } from "react-hook-form";
 import { client } from "@/util.js";
 
@@ -16,8 +16,10 @@ export default function TodoForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Input type="text" {...register("text")} />
-            <Button type="submit">Add Todo</Button>
+            <Stack>
+                <TextInput {...register("text")} />
+                <Button type="submit">Add Todo</Button>
+            </Stack>
         </form>
     );
 }

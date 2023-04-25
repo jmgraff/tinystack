@@ -1,4 +1,4 @@
-import { Alert, AlertTitle } from "@mui/material";
+import { Alert } from "@mantine/core";
 
 export default function QueryStatusMessage({ query, successTitle, errorTitle }) {
     if (query.isError) {
@@ -12,8 +12,7 @@ export default function QueryStatusMessage({ query, successTitle, errorTitle }) 
         }
 
         return (
-            <Alert severity="error">
-                <AlertTitle>{errorTitle || "Error"}</AlertTitle>
+            <Alert title={errorTitle || "Error"} color="red">
                 <ul>
                     {messages.map((message, ii) => (
                         <li key={ii}>{message}</li>
@@ -22,6 +21,6 @@ export default function QueryStatusMessage({ query, successTitle, errorTitle }) 
             </Alert>
         );
     } else if (query.isSuccess) {
-        return <Alert severity="success">{successTitle || "Success"}</Alert>;
+        return <Alert color="green">{successTitle || "Success"}</Alert>;
     }
 }

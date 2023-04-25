@@ -3,6 +3,7 @@ describe("Users", () => {
     const newUserPass = "foobar";
 
     const changePassword = (newPassword, confirmNewPassword) => {
+        cy.get("*[data-testid=usermenu]").click();
         cy.get("*[data-testid=settings]").click();
         cy.get("*[data-testid=newPassword]").type(newPassword);
         cy.get("*[data-testid=confirmNewPassword]").type(confirmNewPassword);
@@ -11,6 +12,7 @@ describe("Users", () => {
     };
 
     const addUser = (newUserEmail, newUserPassword, newUserConfirmPassword) => {
+        cy.get("*[data-testid=usermenu]").click();
         cy.get("*[data-testid=settings]").click();
         cy.get("*[data-testid=newUserEmail]").type(newUserEmail);
         cy.get("*[data-testid=newUserPassword]").type(newUserPassword);
@@ -21,20 +23,23 @@ describe("Users", () => {
 
     const verifySuperuser = (isAdmin = true) => {
         const shouldClause = isAdmin ? "exist" : "not.exist";
+        cy.get("*[data-testid=usermenu]").click();
         cy.get("*[data-testid=settings]").click();
         cy.contains("Manage Users").should(shouldClause);
         cy.contains("Add User").should(shouldClause);
     };
 
     const delUser = (email) => {
+        cy.get("*[data-testid=usermenu]").click();
         cy.get("*[data-testid=settings]").click();
-        cy.get(`div[role=row]:has(div[title="${email}"]) button[data-testid=deleteUser]`).click();
+        cy.get(`*[data-testid="delete-${email}"]`).click();
         cy.contains(email).should("not.exist");
     };
 
     const toggleSuperuser = (email) => {
+        cy.get("*[data-testid=usermenu]").click();
         cy.get("*[data-testid=settings]").click();
-        cy.get(`div[role=row]:has(div[title="${email}"]) div[data-field=is_superuser] input`).click();
+        cy.get(`*[data-testid="toggleSuperuser-${email}"]`).click();
     };
 
     beforeEach(() => {

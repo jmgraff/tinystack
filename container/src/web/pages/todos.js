@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Title } from "@mantine/core";
 import TodoList from "@/components/todos/TodoList";
 
 export default function TodoPage() {
     return (
         <Box>
-            <h1>Todos</h1>
+            <Title order={2}>Todos</Title>
             <TodoList />
         </Box>
     );
