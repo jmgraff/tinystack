@@ -47,15 +47,27 @@ function Todo({ todo }) {
                     onChange={(event) => setText(event.target.value)}
                 />
             )}
-            {!editing && (
-                <Text sx={{ textDecoration: todo.done ? "line-through" : "none" }}>
-                    {todo.text}
-                </Text>
+            {!editing && <Text sx={{ textDecoration: todo.done ? "line-through" : "none" }}>{todo.text}</Text>}
+            {editing && (
+                <Button onClick={() => handleEditOrSave(true)} size="xs" compact>
+                    Save
+                </Button>
             )}
-            {editing && <Button onClick={() => handleEditOrSave(true)} size="xs" compact>Save</Button>}
-            {editing && <Button onClick={() => handleEditOrSave(false)} size="xs" compact>Cancel</Button>}
-            {!editing && hovering && <Button onClick={() => handleEditOrSave()} size="xs" compact>Edit</Button>}
-            {!editing && hovering && <Button onClick={() => deleteTodo.mutate(todo)} size="xs" compact>Delete</Button>}
+            {editing && (
+                <Button onClick={() => handleEditOrSave(false)} size="xs" compact>
+                    Cancel
+                </Button>
+            )}
+            {!editing && hovering && (
+                <Button onClick={() => handleEditOrSave()} size="xs" compact>
+                    Edit
+                </Button>
+            )}
+            {!editing && hovering && (
+                <Button onClick={() => deleteTodo.mutate(todo)} size="xs" compact>
+                    Delete
+                </Button>
+            )}
         </Group>
     );
 }

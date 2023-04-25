@@ -15,15 +15,19 @@ export default function Login() {
     const onSubmit = (creds) => login.mutate(creds);
 
     return (
-        <Box sx={{
-            marginTop: "10%",
-            display: "flex",
-            justifyContent: "center",
-        }}>
+        <Box
+            sx={{
+                marginTop: "10%",
+                display: "flex",
+                justifyContent: "center",
+            }}
+        >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Stack sx={{
-                    width: "30rem"
-                }}>
+                <Stack
+                    sx={{
+                        width: "30rem",
+                    }}
+                >
                     <Title order={1}>🥞 tinystack</Title>
                     <QueryStatusMessage query={login} errorTitle="Error logging in" />
                     <TextInput

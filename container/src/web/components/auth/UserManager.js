@@ -1,7 +1,7 @@
 import { Loader, Checkbox, Box, ActionIcon, Title, Text } from "@mantine/core";
 
 import { DataGrid } from "mantine-data-grid";
-import { IconTrash } from '@tabler/icons-react';
+import { IconTrash } from "@tabler/icons-react";
 
 import { useUsers, useDelUser, useSetUserActive, useSetSuperuser } from "@/util.js";
 
@@ -18,12 +18,12 @@ export default function UserManager() {
             header: "ID",
             accessorKey: "id",
             size: 250,
-            cell: (cell) => <Text fx="xs">{cell.row.original.id}</Text>
+            cell: (cell) => <Text fx="xs">{cell.row.original.id}</Text>,
         },
         {
             header: "Email",
             accessorKey: "email",
-            size: 150
+            size: 150,
         },
         {
             header: "Active",
@@ -57,13 +57,14 @@ export default function UserManager() {
             size: 100,
             cell: (cell) => {
                 console.log(cell.row.original.id);
-                return (<ActionIcon
-                            data-testid={`delete-${cell.row.original.email}`}
-                            onClick={() => delUser.mutate(cell.row.original.id)}
-                            label="Delete"
-                        >
-                            <IconTrash />
-                        </ActionIcon>
+                return (
+                    <ActionIcon
+                        data-testid={`delete-${cell.row.original.email}`}
+                        onClick={() => delUser.mutate(cell.row.original.id)}
+                        label="Delete"
+                    >
+                        <IconTrash />
+                    </ActionIcon>
                 );
             },
         },
