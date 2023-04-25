@@ -1,5 +1,6 @@
-import { Button, TextField, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
+
+import { Box, Title, TextInput, PasswordInput, Button, Stack } from "@mantine/core";
 
 import { useCreateUser } from "@/util";
 import QueryStatusMessage from "@/components/QueryStatusMessage";
@@ -20,21 +21,15 @@ export default function CreateUserForm() {
 
     return (
         <Box>
-            <h1>Create User</h1>
+            <Title order={2}>Create User</Title>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        rowGap: "1rem",
-                    }}
-                >
+                <Stack>
                     <QueryStatusMessage
                         query={createUser}
                         errorTitle="Error adding user"
                         successTitle="Successfully added user"
                     />
-                    <TextField
+                    <TextInput
                         label="Email"
                         data-testid="newUserEmail"
                         error={!!errors.email}
@@ -43,9 +38,8 @@ export default function CreateUserForm() {
                             required: "Required",
                         })}
                     />
-                    <TextField
+                    <PasswordInput
                         label="Password"
-                        type="password"
                         data-testid="newUserPassword"
                         error={!!errors.password}
                         helperText={errors.password?.message}
@@ -53,9 +47,8 @@ export default function CreateUserForm() {
                             required: "Required",
                         })}
                     />
-                    <TextField
+                    <PasswordInput
                         label="Confirm Password"
-                        type="password"
                         data-testid="newUserConfirmPassword"
                         error={!!errors.confirmPassword}
                         helperText={errors.confirmPassword?.message}
@@ -65,7 +58,7 @@ export default function CreateUserForm() {
                         })}
                     />
                     <Button type="submit" data-testid="newUserSubmit">Add User</Button>
-                </Box>
+                </Stack>
             </form>
         </Box>
     );

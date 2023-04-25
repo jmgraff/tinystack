@@ -1,6 +1,7 @@
-import { Box, CircularProgress, Checkbox } from "@mui/material";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Loader, Checkbox, Box, ActionIcon, Title, Text } from "@mantine/core";
+
+import { DataGrid } from "mantine-data-grid";
+import { IconTrash } from '@tabler/icons-react';
 
 import { useUsers, useDelUser, useSetUserActive, useSetSuperuser } from "@/util.js";
 
@@ -10,57 +11,68 @@ export default function UserManager() {
     const setUserActive = useSetUserActive();
     const setSuperuser = useSetSuperuser();
 
-    if (users.isLoading) return <CircularProgress />;
+    if (users.isLoading) return <Loader />;
 
     const columns = [
-        { field: "id", width: 300 },
-        { field: "email", width: 200 },
         {
-            field: "is_active",
-            width: 100,
-            renderCell: ({ value, row }) => (
+            header: "ID",
+            accessorKey: "id",
+            size: 250,
+            cell: (cell) => <Text fx="xs">{cell.row.original.id}</Text>
+        },
+        {
+            header: "Email",
+            accessorKey: "email",
+            size: 150
+        },
+        {
+            header: "Active",
+            accessorKey: "is_active",
+            size: 100,
+            cell: (cell) => (
                 <Checkbox
-                    value={value}
-                    checked={value}
+                    value={cell.getValue()}
+                    checked={cell.getValue()}
                     disabled={setUserActive.isLoading}
-                    onChange={() => setUserActive.mutate({ id: row.id, is_active: !value })}
+                    onChange={() => setUserActive.mutate({ id: cell.row.original.id, is_active: !cell.getValue() })}
                 />
             ),
         },
         {
-            field: "is_superuser",
-            width: 100,
-            renderCell: ({ value, row }) => (
+            header: "Superuser",
+            accessorKey: "is_superuser",
+            size: 100,
+            cell: (cell) => (
                 <Checkbox
-                    value={value}
-                    checked={value}
+                    data-testid={`toggleSuperuser-${cell.row.original.email}`}
+                    value={cell.getValue()}
+                    checked={cell.getValue()}
                     disabled={setSuperuser.isLoading}
-                    onChange={() => setSuperuser.mutate({ id: row.id, is_superuser: !value })}
+                    onChange={() => setSuperuser.mutate({ id: cell.row.original.id, is_superuser: !cell.getValue() })}
                 />
             ),
         },
         {
-            field: "actions",
-            type: "actions",
-            width: 250,
-            getActions: ({ row: { id } }) => [
-                <GridActionsCellItem
-                    data-testid="deleteUser"
-                    key={id}
-                    onClick={() => delUser.mutate(id)}
-                    icon={<DeleteIcon />}
-                    label="Delete"
-                />,
-            ],
+            header: "Delete",
+            size: 100,
+            cell: (cell) => {
+                console.log(cell.row.original.id);
+                return (<ActionIcon
+                            data-testid={`delete-${cell.row.original.email}`}
+                            onClick={() => delUser.mutate(cell.row.original.id)}
+                            label="Delete"
+                        >
+                            <IconTrash />
+                        </ActionIcon>
+                );
+            },
         },
     ];
 
     return (
-        <>
-            <h1>Manage Users</h1>
-            <Box sx={{ height: "20rem" }}>
-                <DataGrid columns={columns} rows={users.data} />
-            </Box>
-        </>
+        <Box>
+            <Title order={2}>Manage Users</Title>
+            <DataGrid columns={columns} data={users.data} />
+        </Box>
     );
 }

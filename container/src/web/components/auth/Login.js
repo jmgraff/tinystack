@@ -1,5 +1,6 @@
-import { Button, TextField, Box, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+
+import { Title, Button, TextInput, Stack, Box } from "@mantine/core";
 
 import QueryStatusMessage from "@/components/QueryStatusMessage.js";
 import { useLogin } from "@/util.js";
@@ -14,43 +15,32 @@ export default function Login() {
     const onSubmit = (creds) => login.mutate(creds);
 
     return (
-        <Box
-            sx={{
-                mt: "20%",
-                display: "flex",
-                justifyContent: "center",
-            }}
-        >
+        <Box sx={{
+            marginTop: "10%",
+            display: "flex",
+            justifyContent: "center",
+        }}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Box
-                    sx={{
-                        width: "40rem",
-                        display: "flex",
-                        flexDirection: "column",
-                        rowGap: "1rem",
-                    }}
-                >
-                    <Typography variant="h1">🥞 tinystack</Typography>
+                <Stack sx={{
+                    width: "30rem"
+                }}>
+                    <Title order={1}>🥞 tinystack</Title>
                     <QueryStatusMessage query={login} errorTitle="Error logging in" />
-                    <TextField
-                        label="Email"
-                        error={!!errors.username}
-                        helperText={errors.username?.message}
+                    <TextInput
+                        error={errors.username?.message}
                         {...register("username", {
                             required: "Required",
                         })}
                     />
-                    <TextField
-                        label="Password"
+                    <TextInput
                         type="password"
-                        error={!!errors.password}
-                        helperText={errors.password?.message}
+                        error={errors.password?.message}
                         {...register("password", {
                             required: "Required",
                         })}
                     />
                     <Button type="submit">Log In</Button>
-                </Box>
+                </Stack>
             </form>
         </Box>
     );
