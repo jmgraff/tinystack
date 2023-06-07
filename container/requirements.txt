@@ -1,5 +1,6 @@
-aiosqlite
-fastapi
-fastapi-users[sqlalchemy]
-sqlalchemy
+devtools
+django
+django-cors-headers
+django-ninja
 uvicorn[standard]
+whitenoise

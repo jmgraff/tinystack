@@ -16,14 +16,14 @@ function UserControls() {
     if (user.isLoading) return <Loader />;
 
     return (
-        <NavLink data-testid="usermenu" label={user.data.email} icon={<IconUser />}>
+        <NavLink data-testid="usermenu" label={user.data.username} icon={<IconUser />}>
             <NavLink
                 color="inherit"
                 data-testid="settings"
                 label="Settings"
                 icon={<IconSettings />}
                 component="a"
-                href="/settings"
+                href="/api/admin"
             />
             <NavLink data-testid="logout" label="Log Out" onClick={() => logOut.mutate()} icon={<IconLogout />} />
         </NavLink>

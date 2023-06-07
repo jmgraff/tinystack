@@ -7,7 +7,7 @@ export default function TodoForm() {
     const queryClient = useQueryClient();
     const onSubmit = (data) => mutation.mutate(data);
     const { register, handleSubmit, reset } = useForm();
-    const mutation = useMutation((data) => client.post("todos", { ...data, done: false }), {
+    const mutation = useMutation((data) => client.post("todos/", { ...data, done: false }), {
         onSuccess: () => {
             reset();
             queryClient.invalidateQueries(["todos"]);
