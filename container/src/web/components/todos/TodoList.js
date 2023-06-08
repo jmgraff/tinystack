@@ -13,11 +13,11 @@ function Todo({ todo }) {
     const [done, setDone] = useState(todo.done);
     const queryClient = useQueryClient();
 
-    const saveTodo = useMutation(() => client.put(`/todos/${todo.id}`, { id: todo.id, text, done }), {
+    const saveTodo = useMutation(() => client.put(`/todos/${todo.id}/`, { id: todo.id, text, done }), {
         onSuccess: () => queryClient.invalidateQueries(["todos"]),
     });
 
-    const deleteTodo = useMutation((todo) => client.delete(`/todos/${todo.id}`), {
+    const deleteTodo = useMutation((todo) => client.delete(`/todos/${todo.id}/`), {
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
     });
 
@@ -37,7 +37,7 @@ function Todo({ todo }) {
 
     return (
         <Group onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
-            <Checkbox checked={todo.done} onClick={toggleDone} />
+            <Checkbox checked={todo.done} onChange={toggleDone} />
             {editing && (
                 <TextInput
                     size="xs"
@@ -73,7 +73,7 @@ function Todo({ todo }) {
 }
 
 export default function TodoList() {
-    const { data, isLoading } = useQuery(["todos"], () => client.get("/todos").then((res) => res.data));
+    const { data, isLoading } = useQuery(["todos"], () => client.get("/todos/").then((res) => res.data));
 
     if (isLoading) return <Loader />;
 

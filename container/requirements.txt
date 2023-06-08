@@ -1,5 +1,8 @@
-aiosqlite
-fastapi
-fastapi-users[sqlalchemy]
-sqlalchemy
+channels >= 3.0.0, < 4.0.0
+devtools
+django
+django-cors-headers
+django-eventstream
+django-ninja
 uvicorn[standard]
+whitenoise
