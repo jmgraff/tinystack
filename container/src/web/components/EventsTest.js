@@ -1,4 +1,6 @@
+import { Button, Group } from "@mantine/core";
 import { useState, useEffect } from "react";
+import { useStartGenerator, useStopGenerator } from "@/util.js";
 
 function useGenerator() {
     const [generator, setGenerator] = useState({});
@@ -15,8 +17,16 @@ function useGenerator() {
 
 export default function EventsTest() {
     const generator = useGenerator();
+    const start = useStartGenerator();
+    const stop = useStopGenerator();
 
     return (
-        <pre>{JSON.stringify(generator, null, 2)}</pre>
+        <>
+            <Group>
+                <Button onClick={() => start.mutate()}>Start Generator</Button>
+                <Button onClick={() => stop.mutate()}>Stop Generator</Button>
+            </Group>
+            <pre>{JSON.stringify(generator, null, 2)}</pre>
+        </>
     );
 }

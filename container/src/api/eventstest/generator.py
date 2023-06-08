@@ -15,12 +15,16 @@ class Generator:
             self.task.cancel()
             self.task = None
             self.value = 0
+            self.fire_event()
 
     async def run_generator(self):
         while True:
             await asyncio.sleep(1)
             self.value += 1
-            send_event("test", "message", {"value": self.value})
+            self.fire_event()
+
+    def fire_event(self):
+        send_event("test", "message", {"value": self.value})
 
 
 generator = Generator()

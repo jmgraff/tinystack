@@ -29,3 +29,7 @@ export const { AuthLoader, useUser, useLogin, useLogout } = configureAuth({
     loginFn: (creds) => client.post("/users/login/", creds),
     logoutFn: () => client.post("/users/logout/"),
 });
+
+export const useStartGenerator = (userInfo) => useMutation(() => client.post("/eventstest/start/"));
+export const useStopGenerator = (userInfo) => useMutation(() => client.post("/eventstest/stop/"));
+
