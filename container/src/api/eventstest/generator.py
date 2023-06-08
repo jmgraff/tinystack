@@ -1,6 +1,7 @@
 import asyncio
 from django_eventstream import send_event
 
+
 class Generator:
     def __init__(self):
         self.value = 0

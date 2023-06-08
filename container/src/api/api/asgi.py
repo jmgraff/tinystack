@@ -16,13 +16,19 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 import django_eventstream
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
 
-application = ProtocolTypeRouter({
-    'http': URLRouter([
-        path('api/events/', AuthMiddlewareStack(
-            URLRouter(django_eventstream.routing.urlpatterns)
-        ), {'channels': ['test']}),
-        re_path(r'', get_asgi_application()),
-    ]),
-})
+application = ProtocolTypeRouter(
+    {
+        "http": URLRouter(
+            [
+                path(
+                    "api/events/",
+                    AuthMiddlewareStack(URLRouter(django_eventstream.routing.urlpatterns)),
+                    {"channels": ["test"]},
+                ),
+                re_path(r"", get_asgi_application()),
+            ]
+        ),
+    }
+)

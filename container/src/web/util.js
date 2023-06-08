@@ -32,4 +32,3 @@ export const { AuthLoader, useUser, useLogin, useLogout } = configureAuth({
 
 export const useStartGenerator = (userInfo) => useMutation(() => client.post("/eventstest/start/"));
 export const useStopGenerator = (userInfo) => useMutation(() => client.post("/eventstest/stop/"));
-

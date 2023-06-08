@@ -9,9 +9,11 @@ router = Router()
 
 LOGIN_BACKEND = "django.contrib.auth.backends.ModelBackend"
 
+
 @router.get("me/", auth=django_auth, response=UserSchema)
 def me(request):
     return request.user
+
 
 @router.post("login/", response={200: None, 403: None})
 def do_login(request, creds: LoginSchema):
@@ -20,6 +22,7 @@ def do_login(request, creds: LoginSchema):
         login(request, user, backend=LOGIN_BACKEND)
     else:
         return 403, None
+
 
 @router.post("logout/", auth=django_auth)
 def do_logout(request):

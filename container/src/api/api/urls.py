@@ -29,8 +29,13 @@ api.add_router("/todos/", todos_router)
 api.add_router("/eventstest/", eventstest_router)
 
 urlpatterns = [
-    path("api/", include([
-        path('admin/', admin.site.urls),
-        path("", api.urls),
-    ]))
+    path(
+        "api/",
+        include(
+            [
+                path("admin/", admin.site.urls),
+                path("", api.urls),
+            ]
+        ),
+    )
 ]
