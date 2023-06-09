@@ -6,29 +6,27 @@ import { Text, TextInput, Checkbox, Loader, Button, Stack, Box, Group } from "@m
 import TodoForm from "@/components/todos/TodoForm.js";
 import { client } from "@/util.js";
 
+import {
+    useGetTodosQuery,
+    useDeleteTodoMutation,
+    usePutTodoMutation,
+} from "@/services/todos.js";
+
 function Todo({ todo }) {
     const [hovering, setHovering] = useState(false);
     const [editing, setEditing] = useState(false);
     const [text, setText] = useState(todo.text);
-    const [done, setDone] = useState(todo.done);
     const queryClient = useQueryClient();
-
-    const saveTodo = useMutation(() => client.put(`/todos/${todo.id}/`, { id: todo.id, text, done }), {
-        onSuccess: () => queryClient.invalidateQueries(["todos"]),
-    });
-
-    const deleteTodo = useMutation((todo) => client.delete(`/todos/${todo.id}/`), {
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
-    });
+    const [deleteTodo] = useDeleteTodoMutation();
+    const [putTodo] = usePutTodoMutation();
 
     const toggleDone = () => {
-        setDone(!done);
-        saveTodo.mutate();
+        putTodo({id: todo.id, body: {text, done: !todo.done}});
     };
 
     const handleEditOrSave = (save = false) => {
         if (editing && save) {
-            saveTodo.mutate();
+            putTodo({id: todo.id, body: {text, done: todo.done}});
         } else if (editing && !save) {
             setText(todo.text);
         }
@@ -64,7 +62,7 @@ function Todo({ todo }) {
                 </Button>
             )}
             {!editing && hovering && (
-                <Button onClick={() => deleteTodo.mutate(todo)} size="xs" compact>
+                <Button onClick={() => deleteTodo(todo.id)} size="xs" compact>
                     Delete
                 </Button>
             )}
@@ -73,7 +71,7 @@ function Todo({ todo }) {
 }
 
 export default function TodoList() {
-    const { data, isLoading } = useQuery(["todos"], () => client.get("/todos/").then((res) => res.data));
+    const { data, isLoading } = useGetTodosQuery();
 
     if (isLoading) return <Loader />;
 
