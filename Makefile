@@ -23,14 +23,13 @@ down:
 	@docker compose down
 clean:
 	@sudo rm -rf data
-build-shell:
-	@docker build -t $(PROJECT_NAME)-shell shell
-shell: export DOCKER_ARGS=-it
-shell:
-	@scripts/shell bash
+migration:
+	@docker compose exec $(PROJECT_NAME) api/manage.py makemigrations
+	@docker compose exec $(PROJECT_NAME) api/manage.py migrate
+	@sudo chown -R $(shell whoami) container/src/api/
+	@sudo chgrp -R $(shell whoami) container/src/api/
 
 ifeq (1,$(IS_CONTAINER))
-
 format:
 	@npx prettier --write $(JS_FILES)
 	@black $(PY_FILES)
@@ -47,7 +46,12 @@ cypress: down
 	@trap tearDown EXIT
 	@docker compose up -d
 	@$(MAKE) -k cypress-impl
-
+else
+build-shell:
+	@docker build -t $(PROJECT_NAME)-shell shell
+shell: export DOCKER_ARGS=-it
+shell:
+	@scripts/shell bash
 endif
 
 .PHONY: cypress down build up dev down clean format build-shell shell

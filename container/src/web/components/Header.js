@@ -14,11 +14,11 @@ import {
 } from "@mantine/core";
 import { IconMoonFilled, IconSunFilled, IconLogout, IconSettings, IconUser } from "@tabler/icons-react";
 
-import { useUser, useLogout, DarkModeContext } from "@/util.js";
+import { useGetMeQuery, useLogMeOutMutation } from "@/services/users.js";
 
 function UserControls() {
-    const user = useUser();
-    const logOut = useLogout();
+    const user = useGetMeQuery();
+    const [logOut] = useLogMeOutMutation();
 
     return (
         <Menu>
@@ -35,7 +35,7 @@ function UserControls() {
                 >
                     Settings
                 </Menu.Item>
-                <Menu.Item data-testid="logout" onClick={() => logOut.mutate()} icon={<IconLogout />}>
+                <Menu.Item data-testid="logout" onClick={logOut} icon={<IconLogout />}>
                     Log Out
                 </Menu.Item>
             </Menu.Dropdown>

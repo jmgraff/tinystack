@@ -1,32 +1,19 @@
 import { Button, Group } from "@mantine/core";
 import { useState, useEffect } from "react";
-import { useStartGenerator, useStopGenerator } from "@/util.js";
-
-function useGenerator() {
-    const [generator, setGenerator] = useState({});
-    useEffect(() => {
-        const eventSource = new EventSource("/api/events/");
-        eventSource.onmessage = (msg) => {
-            console.log(msg);
-            setGenerator(JSON.parse(msg.data));
-        };
-        return () => eventSource.close();
-    }, []);
-    return generator;
-}
+import { useGetGeneratorQuery, useStartGeneratorMutation, useStopGeneratorMutation } from "@/services/generator.js";
 
 export default function EventsTest() {
-    const generator = useGenerator();
-    const start = useStartGenerator();
-    const stop = useStopGenerator();
+    const generator = useGetGeneratorQuery();
+    const [start] = useStartGeneratorMutation();
+    const [stop] = useStopGeneratorMutation();
 
     return (
         <>
             <Group>
-                <Button onClick={() => start.mutate()}>Start Generator</Button>
-                <Button onClick={() => stop.mutate()}>Stop Generator</Button>
+                <Button onClick={() => start()}>Start Generator</Button>
+                <Button onClick={() => stop()}>Stop Generator</Button>
             </Group>
-            <pre>{JSON.stringify(generator, null, 2)}</pre>
+            <pre>{JSON.stringify(generator.data, null, 2)}</pre>
         </>
     );
 }

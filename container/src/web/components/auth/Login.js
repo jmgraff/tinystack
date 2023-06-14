@@ -1,18 +1,17 @@
 import { useForm } from "react-hook-form";
-
 import { Title, Button, TextInput, Stack, Box } from "@mantine/core";
 
+import { useLogMeInMutation } from "@/services/users.js";
 import QueryStatusMessage from "@/components/QueryStatusMessage.js";
-import { useLogin } from "@/util.js";
 
 export default function Login() {
-    const login = useLogin();
+    const [login] = useLogMeInMutation();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const onSubmit = (creds) => login.mutate(creds);
+    const onSubmit = (creds) => login(creds);
 
     return (
         <Box

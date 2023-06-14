@@ -1,6 +1,9 @@
 # start reverse proxy
 traefik --configFile=./traefik.yaml &
 
+# run django migrations
+api/manage.py migrate --noinput
+
 # start the api
 python ./api/main.py &
 

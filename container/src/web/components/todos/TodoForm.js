@@ -1,18 +1,17 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button, TextInput, Stack } from "@mantine/core";
 import { useForm } from "react-hook-form";
 import { client } from "@/util.js";
 
+import { usePostTodoMutation } from "@/services/todos.js";
+
 export default function TodoForm() {
-    const queryClient = useQueryClient();
-    const onSubmit = (data) => mutation.mutate(data);
+    const [postTodo] = usePostTodoMutation();
     const { register, handleSubmit, reset } = useForm();
-    const mutation = useMutation((data) => client.post("todos/", { ...data, done: false }), {
-        onSuccess: () => {
-            reset();
-            queryClient.invalidateQueries(["todos"]);
-        },
-    });
+
+    const onSubmit = (data) => {
+        postTodo(data);
+        reset();
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
