@@ -7,7 +7,6 @@ export default function EventsTest() {
     const [start] = useStartGeneratorMutation();
     const [stop] = useStopGeneratorMutation();
 
-
     return (
         <>
             <Group>

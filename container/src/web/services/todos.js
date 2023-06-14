@@ -8,7 +8,7 @@ export const todosApi = api.injectEndpoints({
         }),
 
         putTodo: builder.mutation({
-            query: ({id, body}) => ({
+            query: ({ id, body }) => ({
                 url: `todos/${id}/`,
                 method: "PUT",
                 body,
@@ -35,9 +35,4 @@ export const todosApi = api.injectEndpoints({
     }),
 });
 
-export const {
-    useGetTodosQuery,
-    useDeleteTodoMutation,
-    usePutTodoMutation,
-    usePostTodoMutation,
-} = todosApi;
+export const { useGetTodosQuery, useDeleteTodoMutation, usePutTodoMutation, usePostTodoMutation } = todosApi;

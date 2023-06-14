@@ -21,7 +21,7 @@ export const usersApi = api.injectEndpoints({
                 url: "users/logout/",
                 method: "POST",
             }),
-            onQueryStarted: async (arg, {dispatch, queryFulfilled}) => {
+            onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
                 await queryFulfilled;
                 dispatch(api.util.resetApiState());
             },
@@ -29,8 +29,4 @@ export const usersApi = api.injectEndpoints({
     }),
 });
 
-export const {
-    useGetMeQuery,
-    useLogMeInMutation,
-    useLogMeOutMutation,
-} = usersApi;
+export const { useGetMeQuery, useLogMeInMutation, useLogMeOutMutation } = usersApi;

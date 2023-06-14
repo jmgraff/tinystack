@@ -5,11 +5,7 @@ import { Text, TextInput, Checkbox, Loader, Button, Stack, Box, Group } from "@m
 import TodoForm from "@/components/todos/TodoForm.js";
 import { client } from "@/util.js";
 
-import {
-    useGetTodosQuery,
-    useDeleteTodoMutation,
-    usePutTodoMutation,
-} from "@/services/todos.js";
+import { useGetTodosQuery, useDeleteTodoMutation, usePutTodoMutation } from "@/services/todos.js";
 
 function Todo({ todo }) {
     const [hovering, setHovering] = useState(false);
@@ -19,12 +15,12 @@ function Todo({ todo }) {
     const [putTodo] = usePutTodoMutation();
 
     const toggleDone = () => {
-        putTodo({id: todo.id, body: {text, done: !todo.done}});
+        putTodo({ id: todo.id, body: { text, done: !todo.done } });
     };
 
     const handleEditOrSave = (save = false) => {
         if (editing && save) {
-            putTodo({id: todo.id, body: {text, done: todo.done}});
+            putTodo({ id: todo.id, body: { text, done: todo.done } });
         } else if (editing && !save) {
             setText(todo.text);
         }

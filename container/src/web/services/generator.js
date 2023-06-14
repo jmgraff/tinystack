@@ -2,11 +2,10 @@ import { api } from "@/services/api.js";
 
 export const generatorApi = api.injectEndpoints({
     endpoints: (builder) => ({
-
         getGenerator: builder.query({
             query: () => "eventstest/",
             providesTags: ["generator"],
-            onCacheEntryAdded: async (arg, {updateCachedData, cacheDataLoaded, cacheEntryRemoved}) => {
+            onCacheEntryAdded: async (arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) => {
                 const eventSource = new EventSource("/api/events/");
                 await cacheDataLoaded;
                 eventSource.onmessage = (msg) => {
@@ -17,7 +16,7 @@ export const generatorApi = api.injectEndpoints({
                 };
                 await cacheEntryRemoved;
                 eventSource.close();
-            }
+            },
         }),
 
         startGenerator: builder.mutation({
@@ -35,12 +34,7 @@ export const generatorApi = api.injectEndpoints({
             }),
             invalidatesTags: ["generator"],
         }),
-
     }),
 });
 
-export const {
-    useGetGeneratorQuery,
-    useStartGeneratorMutation,
-    useStopGeneratorMutation,
-} = generatorApi;
+export const { useGetGeneratorQuery, useStartGeneratorMutation, useStopGeneratorMutation } = generatorApi;

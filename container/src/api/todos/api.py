@@ -8,10 +8,12 @@ from todos.models import Todo
 
 router = Router()
 
+
 def get_todo(request, id):
     if request.user.is_staff:
         return get_object_or_404(Todo, id=id)
     return get_object_or_404(Todo.objects.filter(owner=request.user), id=id)
+
 
 @router.get("", response=list[TodoSchema])
 def get_todos(request):

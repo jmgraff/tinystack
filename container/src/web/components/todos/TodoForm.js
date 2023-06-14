@@ -11,7 +11,7 @@ export default function TodoForm() {
     const onSubmit = (data) => {
         postTodo(data);
         reset();
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
