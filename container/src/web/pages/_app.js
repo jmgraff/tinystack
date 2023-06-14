@@ -1,12 +1,16 @@
 import Layout from "@/components/Layout.js";
+import { Provider } from "react-redux";
 
 import { wrapper } from "@/store/store.js";
 
-function App({ Component, pageProps }) {
+function App({ Component, ...rest }) {
+    const { store, props } = wrapper.useWrappedStore(rest);
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <Provider store={store}>
+            <Layout>
+                <Component {...props.pageProps} />
+            </Layout>
+        </Provider>
     );
 }
 

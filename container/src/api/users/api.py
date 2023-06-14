@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.middleware import csrf
 
 from ninja import Router
 from ninja.security import django_auth
@@ -8,6 +10,11 @@ from users.schema import UserSchema, LoginSchema
 router = Router()
 
 LOGIN_BACKEND = "django.contrib.auth.backends.ModelBackend"
+
+
+@router.get("csrf/", auth=None)
+def session(request):
+    csrf.get_token(request)
 
 
 @router.get("me/", auth=django_auth, response=UserSchema)

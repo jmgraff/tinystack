@@ -1,52 +1,37 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import Cookies from "js-cookie";
+import { api } from "@/services/api.js";
 
-export const todosApi = createApi({
-    reducerPath: "todosApi",
-
-    baseQuery: fetchBaseQuery({
-        baseUrl: "/api/todos/",
-        prepareHeaders: (headers, { getState }) => {
-            headers.set("X-CSRFToken", Cookies.get("csrftoken"));
-            return headers;
-        },
-    }),
-
-    tagTypes: ["todos"],
-
+export const todosApi = api.injectEndpoints({
     endpoints: (builder) => ({
-
         getTodos: builder.query({
-            query: () => "",
-            providesTags: ["todos"],
+            query: () => "todos/",
+            providesTags: ["todo"],
         }),
 
         putTodo: builder.mutation({
             query: ({id, body}) => ({
-                url: `${id}/`,
+                url: `todos/${id}/`,
                 method: "PUT",
                 body,
             }),
-            invalidatesTags: ["todos"],
+            invalidatesTags: ["todo"],
         }),
 
         postTodo: builder.mutation({
             query: (body) => ({
-                url: "",
+                url: "todos/",
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["todos"],
+            invalidatesTags: ["todo"],
         }),
 
         deleteTodo: builder.mutation({
             query: (id) => ({
-                url: `${id}/`,
+                url: `todos/${id}/`,
                 method: "DELETE",
             }),
-            invalidatesTags: ["todos"],
+            invalidatesTags: ["todo"],
         }),
-
     }),
 });
 

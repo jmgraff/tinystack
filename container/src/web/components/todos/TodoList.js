@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Text, TextInput, Checkbox, Loader, Button, Stack, Box, Group } from "@mantine/core";
 
@@ -16,7 +15,6 @@ function Todo({ todo }) {
     const [hovering, setHovering] = useState(false);
     const [editing, setEditing] = useState(false);
     const [text, setText] = useState(todo.text);
-    const queryClient = useQueryClient();
     const [deleteTodo] = useDeleteTodoMutation();
     const [putTodo] = usePutTodoMutation();
 
