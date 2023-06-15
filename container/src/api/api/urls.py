@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ninja import NinjaAPI
+from ninja.security import django_auth
 
 from users.api import router as users_router
 from todos.api import router as todos_router
 from eventstest.api import router as eventstest_router
 
-api = NinjaAPI(csrf=True)
+api = NinjaAPI(csrf=True, auth=django_auth)
 api.add_router("/users/", users_router)
 api.add_router("/todos/", todos_router)
 api.add_router("/eventstest/", eventstest_router)

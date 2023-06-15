@@ -14,4 +14,4 @@ function App({ Component, ...rest }) {
     );
 }
 
-export default wrapper.withRedux(App);
+export default App;
