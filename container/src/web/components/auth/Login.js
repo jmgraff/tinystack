@@ -5,7 +5,7 @@ import { useLogMeInMutation } from "@/services/users.js";
 import QueryStatusMessage from "@/components/QueryStatusMessage.js";
 
 export default function Login() {
-    const [login] = useLogMeInMutation();
+    const [login, result] = useLogMeInMutation();
     const {
         register,
         handleSubmit,
@@ -28,7 +28,7 @@ export default function Login() {
                     }}
                 >
                     <Title order={1}>🥞 tinystack</Title>
-                    <QueryStatusMessage query={login} errorTitle="Error logging in" />
+                    <QueryStatusMessage query={result} errorTitle="Error logging in" />
                     <TextInput
                         error={errors.username?.message}
                         {...register("username", {

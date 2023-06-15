@@ -6,7 +6,6 @@ export const generatorApi = api.injectEndpoints({
         getGenerator: builder.query({
             query: () => "eventstest/",
             onCacheEntryAdded: async (arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) => {
-                console.log("Cache entry added");
                 const ws = new WebSocket(`wss://${HOST}/api/eventstest/`);
                 await cacheDataLoaded;
                 ws.addEventListener("message", (event) => {
