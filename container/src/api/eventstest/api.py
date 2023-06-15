@@ -1,3 +1,5 @@
+from asgiref.sync import async_to_sync
+
 from ninja import Router
 
 from eventstest.generator import generator
@@ -12,10 +14,10 @@ def get_generator(request):
 
 
 @router.post("/start/")
-async def start_generator(request):
-    await generator.start()
+def start_generator(request):
+    async_to_sync(generator.start)()
 
 
 @router.post("/stop/")
 def stop_generator(request):
-    generator.stop()
+    async_to_sync(generator.stop)()

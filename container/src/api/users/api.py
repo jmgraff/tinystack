@@ -17,12 +17,12 @@ def session(request):
     csrf.get_token(request)
 
 
-@router.get("me/", auth=django_auth, response=UserSchema)
+@router.get("me/", response=UserSchema)
 def me(request):
     return request.user
 
 
-@router.post("login/", response={200: None, 403: None})
+@router.post("login/", response={200: None, 403: None}, auth=None)
 def do_login(request, creds: LoginSchema):
     user = authenticate(request, username=creds.username, password=creds.password)
     if user is not None and user.is_active:
@@ -31,6 +31,6 @@ def do_login(request, creds: LoginSchema):
         return 403, None
 
 
-@router.post("logout/", auth=django_auth)
+@router.post("logout/")
 def do_logout(request):
     logout(request)

@@ -134,4 +134,8 @@ STATIC_URL = "api/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EVENTSTREAM_CHANNELMANAGER_CLASS = "api.channelmanager.ChannelManager"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}

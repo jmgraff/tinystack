@@ -17,8 +17,6 @@ export default function Layout({ children }) {
 
     const toggleColorScheme = () => setColorScheme(colorScheme === "dark" ? "light" : "dark");
 
-    console.log("Color scheme is:", colorScheme);
-
     return (
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
