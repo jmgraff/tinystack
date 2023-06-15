@@ -8,8 +8,7 @@ const makeStore = () =>
         reducer: {
             [api.reducerPath]: api.reducer,
         },
-        middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(api.middleware),
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
         devTools: true,
     });
 

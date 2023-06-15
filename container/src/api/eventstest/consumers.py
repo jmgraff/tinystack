@@ -3,6 +3,7 @@ import json
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.layers import get_channel_layer
 
+
 class GeneratorConsumer(AsyncJsonWebsocketConsumer):
     group_name = "generator_group"
 
@@ -10,9 +11,7 @@ class GeneratorConsumer(AsyncJsonWebsocketConsumer):
         if not self.scope["user"].is_authenticated:
             await self.close()
         else:
-            await self.channel_layer.group_add(
-                self.group_name, self.channel_name
-            )
+            await self.channel_layer.group_add(self.group_name, self.channel_name)
             await self.accept()
 
     async def disconnect(self, close_code):
@@ -23,7 +22,4 @@ class GeneratorConsumer(AsyncJsonWebsocketConsumer):
 
     @staticmethod
     async def send_generator_value(value):
-        await get_channel_layer().group_send(
-            GeneratorConsumer.group_name,
-            {"type": "generator.value", "value": value}
-        )
+        await get_channel_layer().group_send(GeneratorConsumer.group_name, {"type": "generator.value", "value": value})

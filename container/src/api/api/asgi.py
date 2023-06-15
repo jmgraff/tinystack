@@ -19,11 +19,9 @@ import api.routing
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
 
-application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": AllowedHostsOriginValidator(
-        AuthMiddlewareStack(
-            URLRouter(api.routing.websocket_urlpatterns)
-        )
-    )
-})
+application = ProtocolTypeRouter(
+    {
+        "http": get_asgi_application(),
+        "websocket": AllowedHostsOriginValidator(AuthMiddlewareStack(URLRouter(api.routing.websocket_urlpatterns))),
+    }
+)

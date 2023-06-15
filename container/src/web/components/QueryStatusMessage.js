@@ -2,7 +2,8 @@ import { Alert } from "@mantine/core";
 
 export default function QueryStatusMessage({ query, successTitle, errorTitle }) {
     if (query.isError) {
-        const detail = query.error.response.data.detail;
+        console.log(query);
+        const detail = query.error.data;
         let messages = [];
 
         if (typeof detail === "string") {
