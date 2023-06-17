@@ -22,13 +22,13 @@ def me(request):
     return request.user
 
 
-@router.post("login/", response={200: None, 403: None}, auth=None)
+@router.post("login/", response={200: None, 403: str}, auth=None)
 def do_login(request, creds: LoginSchema):
     user = authenticate(request, username=creds.username, password=creds.password)
     if user is not None and user.is_active:
         login(request, user, backend=LOGIN_BACKEND)
     else:
-        return 403, None
+        return 403, "Invalid username or password"
 
 
 @router.post("logout/")

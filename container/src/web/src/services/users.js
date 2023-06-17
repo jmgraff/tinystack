@@ -13,7 +13,7 @@ export const usersApi = api.injectEndpoints({
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["user"],
+            invalidatesTags: (res, err, arg) => !!!err ? ["user"] : null,
         }),
 
         logMeOut: builder.mutation({

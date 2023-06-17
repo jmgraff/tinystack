@@ -2,9 +2,7 @@ import { useState } from "react";
 
 import { Text, TextInput, Checkbox, Loader, Button, Stack, Box, Group } from "@mantine/core";
 
-import TodoForm from "@/components/todos/TodoForm.js";
-import { client } from "@/util.js";
-
+import TodoForm from "./TodoForm";
 import { useGetTodosQuery, useDeleteTodoMutation, usePutTodoMutation } from "@/services/todos.js";
 
 function Todo({ todo }) {

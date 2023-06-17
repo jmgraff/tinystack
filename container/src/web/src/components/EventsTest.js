@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Button, Group } from "@mantine/core";
 import { useGetGeneratorQuery, useStartGeneratorMutation, useStopGeneratorMutation } from "@/services/generator.js";
 

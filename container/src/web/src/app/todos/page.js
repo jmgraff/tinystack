@@ -1,5 +1,6 @@
+"use client";
 import { Box, Title } from "@mantine/core";
-import TodoList from "@/components/todos/TodoList";
+import TodoList from "./TodoList";
 
 export default function TodoPage() {
     return (

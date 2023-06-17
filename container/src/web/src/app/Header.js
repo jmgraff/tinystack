@@ -1,18 +1,16 @@
-import { useContext } from "react";
-
 import {
     ActionIcon,
     Button,
     Box,
     Header,
     Title,
-    Text,
     Group,
     NavLink,
     Menu,
     useMantineColorScheme,
 } from "@mantine/core";
 import { IconMoonFilled, IconSunFilled, IconLogout, IconSettings, IconUser } from "@tabler/icons-react";
+import Link from "next/link";
 
 import { useGetMeQuery, useLogMeOutMutation } from "@/services/users.js";
 
@@ -30,7 +28,7 @@ function UserControls() {
                     color="inherit"
                     data-testid="settings"
                     icon={<IconSettings />}
-                    component="a"
+                    component={Link}
                     href="/api/admin/"
                 >
                     Settings
@@ -52,12 +50,12 @@ function DarkModeButton() {
     );
 }
 
-export default function Head() {
+export default function AppHeader() {
     return (
         <Header height={80} p="1rem">
             <Group sx={{ justifyContent: "space-between" }}>
                 <Button
-                    component="a"
+                    component={Link}
                     href="/"
                     h="3rem"
                     variant="subtle"
