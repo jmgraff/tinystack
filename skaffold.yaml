@@ -1,0 +1,21 @@
+apiVersion: skaffold/v4beta5
+kind: Config
+metadata:
+  name: tinystack
+build:
+  artifacts:
+    - image: tinystack
+      context: container
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          HOST: "{{ .HOST }}"
+      sync:
+        infer:
+        - "src/**"
+manifests:
+  rawYaml:
+    - secrets/secrets.yaml
+    - kube/ingress.yaml
+    - kube/service.yaml
+    - kube/storage.yaml

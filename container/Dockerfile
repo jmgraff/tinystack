@@ -1,21 +1,21 @@
-from python:alpine
+FROM python:alpine
 
-arg HOST
+ARG HOST
 
-env NEXT_PUBLIC_HOST=$HOST
-env NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_HOST=$HOST
+ENV NEXT_TELEMETRY_DISABLED=1
 
-env HOST=$HOST
+ENV HOST=$HOST
 
-run apk add --update npm traefik
+RUN apk add --update npm
 
-copy ./requirements.txt .
-run pip install -r requirements.txt && rm requirements.txt
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt && rm requirements.txt
 
-copy ./src /opt/container
+COPY ./src /opt/container
 
-workdir /opt/container
+WORKDIR /opt/container
 
-run cd web && npm install && npm run build
+RUN cd web && npm install && npm run build
 
-entrypoint ["sh", "entrypoint.sh"]
+ENTRYPOINT ["sh", "entrypoint.sh"]

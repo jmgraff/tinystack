@@ -1,9 +1,0 @@
-services:
-  tinystack:
-    image: tinystack
-    build:
-      context: container
-      args:
-        HOST: ${HOST}
-    ports:
-      - 443:443
