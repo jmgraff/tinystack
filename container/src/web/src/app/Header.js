@@ -24,15 +24,17 @@ function UserControls() {
                 <NavLink data-testid="usermenu" label={user.data.username} icon={<IconUser />} variant="filled" />
             </Menu.Target>
             <Menu.Dropdown>
-                <Menu.Item
-                    color="inherit"
-                    data-testid="settings"
-                    icon={<IconSettings />}
-                    component={Link}
-                    href="/api/admin/"
-                >
-                    Settings
-                </Menu.Item>
+                { user.data.is_staff && (
+                    <Menu.Item
+                        color="inherit"
+                        data-testid="admin"
+                        icon={<IconSettings />}
+                        component={Link}
+                        href="/api/admin/"
+                    >
+                        Admin
+                    </Menu.Item>
+                )}
                 <Menu.Item data-testid="logout" onClick={logOut} icon={<IconLogout />}>
                     Log Out
                 </Menu.Item>
