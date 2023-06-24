@@ -13,7 +13,7 @@ build:
         - "src/**"
 manifests:
   rawYaml:
-    - kube/ingress.yaml
     - kube/secrets.yaml
+    - kube/ingress.yaml
     - kube/service.yaml
     - kube/storage.yaml

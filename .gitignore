@@ -3,3 +3,4 @@ __pycache__
 data
 cypress/videos
 cypress/screenshots
+secrets
