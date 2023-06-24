@@ -1,5 +1,5 @@
 # Change these
-export DEFAULT_USERNAME=root@example.com
+export DEFAULT_USERNAME=root
 export DEFAULT_PASSWORD=root
 export PROJECT_NAME=tinystack
 export HOST=localhost
