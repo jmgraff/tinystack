@@ -1,5 +1,10 @@
--include .env
+# Change these
+export DEFAULT_USERNAME=root@example.com
+export DEFAULT_PASSWORD=root
+export PROJECT_NAME=tinystack
+export HOST=localhost
 
+# Do not change
 .ONESHELL:
 export SHELL:=/bin/bash
 export SHELLOPTS:=$(if $(SHELLOPTS),$(SHELLOPTS):)pipefail:errexit
@@ -12,22 +17,15 @@ PY_FILES=$(shell find ./container/src/api -type f -name "*.py")
 JS_FILES=$(shell find ./container/src/web \( -name "node_modules" -prune -o -name ".next" -prune \) -o -type f -name "*.js" -print)
 
 build:
-	@docker compose build
-up:
-	@docker compose up -d
-	@docker compose logs -f
+	@skaffold build
+deploy:
+	@skaffold run
 dev:
-	@docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up
-	@docker compose logs -f
-down:
-	@docker compose down
-clean:
-	@sudo rm -rf data
+	@skaffold dev
 migration:
-	@docker compose exec $(PROJECT_NAME) api/manage.py makemigrations
-	@docker compose exec $(PROJECT_NAME) api/manage.py migrate
-	@sudo chown -R $(shell whoami) container/src/api/
-	@sudo chgrp -R $(shell whoami) container/src/api/
+	@python3 container/src/api/manage.py makemigration
+ssh:
+	@kubectl exec -it deploy/$(PROJECT_NAME) -- sh
 
 ifeq (1,$(IS_CONTAINER))
 format:

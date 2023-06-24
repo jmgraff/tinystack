@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tinystack
+  annotations:
+    nginx.org/redirect-to-https: "true"
+spec:
+  tls:
+    - hosts:
+      - tinystack.localdomain
+      secretName: tinystack-tls
+  rules:
+  - host: tinystack.localdomain
+    http:
+      paths:
+      - pathType: Prefix
+        path: /api
+        backend:
+          service:
+            name: tinystack
+            port: 
+              number: 8080
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: tinystack
+            port: 
+              number: 3000
