@@ -29,8 +29,6 @@ spec:
       - name: tinystack
         image: tinystack
         env:
-        - name: HOST
-          value: tinystack.localdomain
         - name: DEV
           value: "1"
         ports:

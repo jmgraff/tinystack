@@ -1,6 +1,6 @@
-node_modules
 __pycache__
-data
-cypress/videos
 cypress/screenshots
+cypress/videos
+data
+node_modules
 secrets

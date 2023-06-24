@@ -2,7 +2,7 @@
 export DEFAULT_USERNAME=root
 export DEFAULT_PASSWORD=root
 export PROJECT_NAME=tinystack
-export HOST=localhost
+export HOST=tinystack.localdomain
 
 # Do not change
 .ONESHELL:

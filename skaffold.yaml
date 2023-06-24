@@ -8,6 +8,8 @@ build:
       context: container
       docker:
         dockerfile: Dockerfile
+        buildArgs:
+          HOST: "{{ .HOST }}"
       sync:
         infer:
         - "src/**"
