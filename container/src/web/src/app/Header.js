@@ -1,14 +1,4 @@
-import {
-    ActionIcon,
-    Button,
-    Box,
-    Header,
-    Title,
-    Group,
-    NavLink,
-    Menu,
-    useMantineColorScheme,
-} from "@mantine/core";
+import { ActionIcon, Button, Box, Header, Title, Group, NavLink, Menu, useMantineColorScheme } from "@mantine/core";
 import { IconMoonFilled, IconSunFilled, IconLogout, IconSettings, IconUser } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -24,7 +14,7 @@ function UserControls() {
                 <NavLink data-testid="usermenu" label={user.data.username} icon={<IconUser />} variant="filled" />
             </Menu.Target>
             <Menu.Dropdown>
-                { user.data.is_staff && (
+                {user.data.is_staff && (
                     <Menu.Item
                         color="inherit"
                         data-testid="admin"
