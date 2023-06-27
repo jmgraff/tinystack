@@ -1,11 +1,6 @@
 FROM python:alpine
 
-ARG HOST
-
-ENV NEXT_PUBLIC_HOST=$HOST
 ENV NEXT_TELEMETRY_DISABLED=1
-
-ENV HOST=$HOST
 
 RUN apk add --update npm
 

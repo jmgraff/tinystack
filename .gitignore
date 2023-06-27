@@ -3,4 +3,4 @@ cypress/screenshots
 cypress/videos
 data
 node_modules
-secrets
+chart/templates/secrets.yaml
