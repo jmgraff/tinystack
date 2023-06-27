@@ -1,12 +1,11 @@
 import { api } from "@/services/api.js";
-import { HOST } from "@/util.js";
 
 export const generatorApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getGenerator: builder.query({
             query: () => "eventstest/",
             onCacheEntryAdded: async (arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) => {
-                const ws = new WebSocket(`wss://${HOST}/api/eventstest/`);
+                const ws = new WebSocket(`wss://${window.location.host}/api/eventstest/`);
                 await cacheDataLoaded;
                 ws.addEventListener("message", (event) => {
                     const data = JSON.parse(event.data);

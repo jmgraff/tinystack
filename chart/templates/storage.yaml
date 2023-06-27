@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tinystack-pv
+  name: {{ .Chart.Name }}-pv
 spec:
   capacity:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/opt/tinystack"
+    path: "/opt/{{ .Chart.Name }}"
   storageClassName: manual
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tinystack-pv-claim
+  name: {{ .Chart.Name }}-pv-claim
 spec:
   resources:
     requests:

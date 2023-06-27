@@ -17,8 +17,7 @@ export default function RootLayout({ children }) {
         getInitialValueInEffect: true,
     });
 
-    const toggleColorScheme = () => 
-        setColorScheme(colorScheme === "dark" ? "light" : "dark");
+    const toggleColorScheme = () => setColorScheme(colorScheme === "dark" ? "light" : "dark");
 
     return (
         <html lang="en">
@@ -33,7 +32,7 @@ export default function RootLayout({ children }) {
                             </AuthLoader>
                         </MantineProvider>
                     </ColorSchemeProvider>
-                </ReduxProvider>   
+                </ReduxProvider>
             </body>
         </html>
     );
