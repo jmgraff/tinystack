@@ -14,7 +14,7 @@ export CYPRESS_DEFAULT_PASSWORD=$(DEFAULT_PASSWORD)
 
 IS_CONTAINER=$(shell if test -f /.dockerenv; then echo 1; else echo 0; fi)
 PY_FILES=$(shell find ./container/src/api -type f -name "*.py")
-JS_FILES=$(shell find ./container/src/web \( -name "node_modules" -prune -o -name ".next" -prune \) -o -type f -name "*.js" -print)
+JS_FILES=$(shell find ./container/src/web/src -type f -name "*.js")
 
 build:
 	@skaffold build
@@ -26,6 +26,9 @@ migration:
 	@python3 container/src/api/manage.py makemigration
 ssh:
 	@kubectl exec -it deploy/$(PROJECT_NAME) -- sh
+
+clean:
+	@skaffold delete
 
 ifeq (1,$(IS_CONTAINER))
 format:

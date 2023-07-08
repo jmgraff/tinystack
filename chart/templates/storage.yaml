@@ -3,22 +3,22 @@ kind: PersistentVolume
 metadata:
   name: {{ .Chart.Name }}-pv
 spec:
+  storageClassName: manual
   capacity:
-    storage: 10Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
     path: "/opt/{{ .Chart.Name }}"
-  storageClassName: manual
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Chart.Name }}-pv-claim
 spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
